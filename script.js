@@ -34,7 +34,7 @@ buttons.forEach(button => button.addEventListener('click', function(e) {
     let number = attribute;
     // Check to see that the computation is done
     const resultChild = resultDisplay.lastElementChild;
-    if (!resultChild == false) {
+    if (!resultChild == false && (number == 'add' || number == 'subtract' || number == 'multiply' || number == 'divide' || number == 'equal')) {
         return;
     }
 
