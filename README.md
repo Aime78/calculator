@@ -2,4 +2,4 @@
 
 Calculator built with HTML, CSS, and JavaScript.
 
-[live demo](https://github.com/Aime78/calculator)
+[live demo](https://aime78.github.io/portfolio/)
