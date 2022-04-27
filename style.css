@@ -28,7 +28,7 @@ body {
 }
 
 .screen {
-    border: 1px solid white;
+    
     width: 380px;
     height: 100px;
     margin: 40px 0px 0px 30px;
@@ -40,7 +40,7 @@ body {
     position: absolute;
     margin-top: 5px;
     right: 35px;
-    border: 1px solid black;
+    
     width: 300px;
     height: 40px;
     font-size: 33px;
@@ -51,22 +51,25 @@ body {
     position: absolute;
     margin-top: 55px;
     right: 35px;
-    border: 1px solid black;
+    
     width: 300px;
     height: 40px;
     font-size: 40px;
     text-align: end;
 }
 
+span {
+    padding: 0.8px;
+}
+
 button {
-    border: 1px solid black;
+    border: 0.5px solid black;
     width: 85px;
     height: 55px;
     font-size: 30px;
 }
 
 .btn {
-    border: 1px solid white;
     padding: 30px 20px 30px 28px;
 }
 

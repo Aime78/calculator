@@ -17,6 +17,7 @@ const divide = function(a, b) {
     return a / b;
 };
 
+// variables
 let array1 = [];
 let array2 = [];
 let operatorClicked = [];
@@ -31,53 +32,48 @@ buttons.forEach(button => button.addEventListener('click', function(e) {
     const element = e.target;
     const attribute = element.getAttribute('id');
 
-    let number = attribute;
+    let buttonClicked = attribute;
+
     // Check to see that the computation is done
     const resultChild = resultDisplay.lastElementChild;
-    if (!resultChild == false && (number == 'add' || number == 'subtract' || number == 'multiply' || number == 'divide' || number == 'equal')) {
+    if (!resultChild == false && (buttonClicked == 'add' || buttonClicked == 'subtract' || buttonClicked == 'multiply' || buttonClicked == 'divide' || buttonClicked == 'equal')) {
         return;
     }
 
 
-    if ((number == 'add' || number == 'subtract' || number == 'multiply' || number == 'divide' || number == 'equal') && array2.length == 0) return;
+    if ((buttonClicked == 'add' || buttonClicked == 'subtract' || buttonClicked == 'multiply' || buttonClicked == 'divide' || buttonClicked == 'equal') && array2.length == 0) return;
 
-    if (number == 'add' || number == 'subtract' || number == 'multiply' || number == 'divide') {
+    if (buttonClicked == 'add' || buttonClicked == 'subtract' || buttonClicked == 'multiply' || buttonClicked == 'divide') {
         if (operatorClicked.length == 0) {
-            
-            //const display = document.createElement('span');
-            //operator = symbolSelect(number);
-            //display.textContent = `${operator}`;
-            //display.classList.add('sign');
-            //value.appendChild(display);
 
-            operatorClicked.push(number);
+            operatorClicked.push(buttonClicked);
         }
     }
-    console.log(operatorClicked);
+    
     const dot2 = array2.find(dot => dot == '.');
     const dot1 = array1.find(dot => dot == '.');
 
     // store the values
-    if (operatorClicked.length >= 1 && (!isNaN(number) || (number == '.' && !dot1))) {
-        //const value = document.querySelector('.value');
+    if (operatorClicked.length >= 1 && (!isNaN(buttonClicked) || (buttonClicked == '.' && !dot1))) {
+        
         const display = document.createElement('span');
-        display.textContent = `${number}`;
+        display.textContent = `${buttonClicked}`;
         value.appendChild(display);
-        array1.push(number);
+        array1.push(buttonClicked);
     }
 
     else {
-        if (!isNaN(number) || (number == '.' && !dot2)) {
+        if (!isNaN(buttonClicked) || (buttonClicked == '.' && !dot2)) {
             //const value = document.querySelector('.value');
             const display = document.createElement('span');
-            display.textContent = `${number}`;
+            display.textContent = `${buttonClicked}`;
             value.appendChild(display);
-            array2.push(number);
+            array2.push(buttonClicked);
         }
     }
 
     // delete the values
-    if (number == 'delete') {
+    if (buttonClicked == 'delete') {
         if (operatorClicked.length == 0) {
             array2.splice(array2.length - 1, array2.length);
         }
@@ -90,55 +86,36 @@ buttons.forEach(button => button.addEventListener('click', function(e) {
         
         
     }
-    else if (number == 'clear') {
+    else if (buttonClicked == 'clear') {
         array2.splice(0, array2.length);
         array1.splice(0, array1.length);
         operatorClicked.splice(0, operatorClicked.length);
         resultArray.splice(0, resultArray.length);
     }
-    
-
-
-    //console.log(`dot: ${dot}`);
-    console.log(`array1: ${array1}`);
-    console.log(`array2: ${array2}`);
-
-   
-
-
-
-
 
     let result;
     
     // Operation
-    if (number == 'add' || number == 'subtract' || number == 'multiply' || number == 'divide' || number == 'equal') {
-        console.log(`resultarraylength before: ${resultArray.length}`);
+    if (buttonClicked == 'add' || buttonClicked == 'subtract' || buttonClicked == 'multiply' || buttonClicked == 'divide' || buttonClicked == 'equal') {
 
-        //value.appendChild(display);
-
+        // Operation for the first time
         if (resultArray.length == 0 && array1.length != 0) {
             result = operation(array2, operatorClicked, array1);
             resultArray.push(result);
 
             array1.splice(0, array1.length); 
-            console.log(`1: ${resultArray}`);
-            console.log(`resultarraylength after: ${resultArray.length}`);
-
         }
+        // Operations after the first one
         else if (array1.length != 0 && resultArray.length != 0) {
             
             result = operation(resultArray, operatorClicked, array1);
             resultArray[0] = result; 
+
             array1.splice(0, array1.length);
             
-            console.log(`2: ${resultArray}`);
         }
-        operatorClicked[0] = number;
+        operatorClicked[0] = buttonClicked;
     }
-
-
-       
 }));
 
 // Operators display
@@ -175,7 +152,6 @@ operators.forEach(operator => operator.addEventListener('click', function(e) {
 
 }));
 
-
 // Clear, delete and final answer
 const changeBtn = Array.from(document.querySelectorAll('.changeBtn'));
 
@@ -183,7 +159,6 @@ changeBtn.forEach(change => change.addEventListener('click', function(e) {
     const element = e.target;
     const change = element.getAttribute('id');
 
-    console.log(change);
     const span = Array.from(document.querySelectorAll('span'));
     if (!span) return;
     
@@ -206,7 +181,6 @@ changeBtn.forEach(change => change.addEventListener('click', function(e) {
         }
     }
     else if (change == 'equal') {
-        //console.log(`result: ${resultArray[0]}`)
         if (!resultChild == false) {
             return;
         }
@@ -219,15 +193,16 @@ changeBtn.forEach(change => change.addEventListener('click', function(e) {
 }));
 
 
-
+// computation custom function
 function operation(a, b, c) {
     let firstArgument = arguments[0].join('');
     firstArgument = Number(firstArgument);
+
     let secondArgument = arguments[1].join('');
+
     let thirdArgument = arguments[2].join('');
     thirdArgument = Number(thirdArgument);
 
-    console.log(firstArgument, secondArgument, thirdArgument);
     if (secondArgument == 'add') {
         let result = add(firstArgument, thirdArgument);
         if (!Number.isInteger(result)) {
@@ -259,6 +234,7 @@ function operation(a, b, c) {
     
 }
 
+// Custom function of operators
 function symbolSelect (symbol) {
     let sign;
     if (symbol == 'add') {
